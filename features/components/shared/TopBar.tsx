@@ -79,7 +79,7 @@ const Topbar = () => {
       {/* Mobile half-circle menu - centered - uses transform instead of opacity to prevent layout shift */}
       <div
         ref={mobileMenuRef}
-        className="md:hidden fixed z-50 top-0 left-1/2 -translate-x-1/2 transition-transform duration-300"
+        className="md:hidden fixed z-100 top-0 left-1/2 -translate-x-1/2 transition-transform duration-300"
         style={{
           transform: isVisible ? "translateY(0)" : "translateY(-120px)",
         }}
