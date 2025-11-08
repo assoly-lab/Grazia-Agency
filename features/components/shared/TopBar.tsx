@@ -79,7 +79,7 @@ const Topbar = () => {
       {/* Mobile half-circle menu - centered - uses transform instead of opacity to prevent layout shift */}
       <div
         ref={mobileMenuRef}
-        className="md:hidden fixed z-100 top-0 left-1/2 -translate-x-1/2 transition-transform duration-300"
+        className="md:hidden fixed z-40 top-0 left-1/2 -translate-x-1/2 transition-transform duration-300"
         style={{
           transform: isVisible ? "translateY(0)" : "translateY(-120px)",
         }}
@@ -165,7 +165,7 @@ const Topbar = () => {
 
       {/* Desktop menu - uses transform to hide without affecting scrollbar */}
       <div
-        className="hidden md:block w-full bg-slate-900 text-white border-b border-slate-800 transition-transform duration-300"
+        className=" hidden md:block md:relative md:z-100 w-full bg-slate-900 text-white border-b border-slate-800 transition-transform duration-300"
         style={{
           transform: isVisible ? "translateY(0)" : "translateY(-100%)",
         }}
