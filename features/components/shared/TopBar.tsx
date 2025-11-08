@@ -15,7 +15,24 @@ const Topbar = () => {
   const [language, setLanguage] = useState("en")
   const [isVisible, setIsVisible] = useState<boolean>(true)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
+  const languageMenuRef = useRef<HTMLDivElement>(null)
   const lastScrollPosRef = useRef<number>(0)
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (languageMenuRef.current && !languageMenuRef.current.contains(event.target as Node)) {
+        setShowLanguageMenu(false)
+      }
+    }
+
+    if (showLanguageMenu) {
+      document.addEventListener("mousedown", handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [showLanguageMenu])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -46,7 +63,7 @@ const Topbar = () => {
 
         // Only update visibility if scroll distance is significant (100px threshold)
         // This prevents micro-scrolls from triggering visibility changes
-        if (Math.abs(currentScrollPos - lastScrollPosRef.current) >10) {
+        if (Math.abs(currentScrollPos - lastScrollPosRef.current) > 10) {
           const scrollingDown = currentScrollPos > lastScrollPosRef.current
 
           // Only set visible if we're scrolling up, hidden if scrolling down
@@ -215,7 +232,7 @@ const Topbar = () => {
               <div className="w-px h-5 bg-slate-700" />
 
               {/* Language Switcher */}
-              <div className="relative">
+              <div className="relative" ref={languageMenuRef}>
                 <button
                   onClick={() => setShowLanguageMenu(!showLanguageMenu)}
                   className="flex items-center gap-1.5 text-sm text-slate-300 hover:text-white transition-colors px-2 py-1 rounded hover:bg-slate-800"
@@ -224,7 +241,6 @@ const Topbar = () => {
                   <span className="hidden sm:inline text-xs uppercase font-medium">{language}</span>
                 </button>
 
-                {/* Language Dropdown Menu */}
                 {showLanguageMenu && (
                   <div className="absolute right-0 mt-1 bg-slate-800 border border-slate-700 rounded shadow-lg z-50">
                     {Object.entries(LANGUAGES).map(([code, name]) => (
