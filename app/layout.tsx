@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Open_Sans, Nunito_Sans } from "next/font/google";
 import "./globals.css";
+import { Navbar } from "@/features/components/shared/NavBar";
+import TopBar from "@/features/components/shared/TopBar";
+import Footer from "@/features/components/shared/Footer";
+import ScrollToTop from "@/features/components/shared/ScrollToTop";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const openSans = Open_Sans({
+  variable: "--font-open-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const nunitoSans = Nunito_Sans({
+  variable: "--font-nunito-sans",
   subsets: ["latin"],
 });
 
@@ -25,9 +29,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${openSans.variable} ${nunitoSans.variable} antialiased`}
       >
+        <TopBar />
+        <Navbar />
+        <ScrollToTop />
         {children}
+        <Footer />
       </body>
     </html>
   );
